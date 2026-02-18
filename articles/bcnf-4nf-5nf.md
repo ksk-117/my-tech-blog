@@ -3,7 +3,7 @@ title: "【PostgreSQL v17】ボイスコッド正規化と第4・第5正規化�
 emoji: "🐘"
 type: "tech"
 topics: ["postgresql", "db", "normalization", "data-modeling", "learning"]
-published: false
+published: true
 ---
 
 データベース設計の授業で第3正規形までは触れたけれど、**「BCNF 以降はテストで名前を覚えただけ」** という方は多いのではないでしょうか？しかし現場では、複雑な分析基盤やマスタデータ統合を行う際に、**ボイスコッド正規形 (BCNF)、第4正規形 (4NF)、第5正規形 (5NF)** を理解しているかどうかが、テーブル設計の品質に直結します。
@@ -267,8 +267,7 @@ SELECT supplier, part, project FROM supplier_parts_projects;
 
 ## 5. 解答例
 
-<details>
-<summary><strong>演習1の解答例</strong></summary>
+:::details 演習1の解答例
 
 ```sql
 BEGIN;
@@ -281,10 +280,9 @@ ROLLBACK;
 
 BCNF に分解したことで、`hall_contacts` だけ更新すれば JOIN 先のイベント情報も自動的に最新化される。もし単一テーブルのままだと、`event_assignments` の該当行すべてを更新する必要があった。
 
-</details>
+:::
 
-<details>
-<summary><strong>演習2の解答例</strong></summary>
+:::details 演習2の解答例
 
 ```sql
 INSERT INTO artist_skill_map VALUES (11, 'Live');
@@ -294,10 +292,9 @@ DELETE FROM artist_skill_map WHERE artist_id = 11 AND skill = 'Live';
 
 スキル1件を追加すると、`artist_instrument_map` の組み合わせ分だけ行が増える。多値従属性を切り離したことで、**「楽器×スキル」の直積がビューで自動生成される**ため、どの組み合わせが実在するかを制御したい場合は、ビューではなく別テーブルを用意する判断も必要になる。
 
-</details>
+:::
 
-<details>
-<summary><strong>演習3の解答例</strong></summary>
+:::details 演習3の解答例
 
 ```sql
 WITH reconstructed AS (
@@ -313,7 +310,7 @@ SELECT supplier, part, project FROM supplier_parts_projects;
 
 結果が 0 行なら完全復元に成功している。もし差分が出た場合は、欠けている組み合わせをもとに、どの分解テーブルが不足しているかを逆算できる。
 
-</details>
+:::
 
 ---
 
