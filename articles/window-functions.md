@@ -338,8 +338,7 @@ ORDER BY region NULLS LAST, shop_name NULLS LAST;
 
 まずは自分で考えてから、以下の解答を確認してください。
 
-<details>
-<summary><strong>演習問題 1 の解答</strong> (クリックして展開)</summary>
+:::details 演習問題 1 の解答 (クリックして展開)
 
 「同点の場合は両方抽出」という条件から、`ROW_NUMBER` ではなく `RANK` を使用します。その後、サブクエリ（またはCTE）で `rank <= 2` でフィルタリングします。
 
@@ -359,10 +358,9 @@ WHERE rank_in_team <= 2;
 
 このアプローチなら、ウィンドウ関数で各行の順位を保持したまま条件抽出できるため、自己結合で順位テーブルを再構築するより読みやすく、上位N件の抽出条件も簡潔に表現できます。
 
-</details>
+:::
 
-<details>
-<summary><strong>演習問題 2 の解答</strong> (クリックして展開)</summary>
+:::details 演習問題 2 の解答 (クリックして展開)
 
 `LAG(カラム名) OVER(...)` は、ウィンドウ内の「1つ前の行の値」を取得する関数です。
 
@@ -381,10 +379,9 @@ WHERE region = 'Kansai';
 
 `LAG` を使って前行の値を直接参照できるので、自己結合やサブクエリで「一つ上の順位」を探す必要がなくなり、差分計算のロジックを1行で表現できます。ランキング系の分析をシンプルに保てるのが大きな利点です。
 
-</details>
+:::
 
-<details>
-<summary><strong>演習問題 3 の解答</strong> (クリックして展開)</summary>
+:::details 演習問題 1 の解答 (クリックして展開)
 
 `GROUPING` 関数の戻り値（0または1）を利用して、表示する文字列を制御します。
 
@@ -407,7 +404,7 @@ ORDER BY region NULLS LAST, shop_name NULLS LAST;
 
 `ROLLUP` と `GROUPING` を組み合わせることで、総計・小計を一度に導出しつつラベル付けもSQL側で完結できます。複数の UNION を組むよりも処理コストが低く、アプリケーション側の後処理も最小化できます。
 
-</details>
+:::
 
 ---
 
